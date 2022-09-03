@@ -31,10 +31,9 @@ namespace ProgramingLanguage.Application.Features.Commands.Languages.UpdateLangu
             _languageBusinessRules.LanguageShouldExistWhenRequested(language);
 
             await _languageBusinessRules.LanguageNameCanNotBeDuplicatedWhenInserted(request.Name);
-           
-            language.Name = request.Name;
-            await _languageRepository.UpdateAsync(language);
-            var returnItem = _mapper.Map<LanguageViewModel>(language);
+            _mapper.Map(request, language);
+            var updateItem = await _languageRepository.UpdateAsync(language);
+            var returnItem = _mapper.Map<LanguageViewModel>(updateItem);
 
             return returnItem;
         }
