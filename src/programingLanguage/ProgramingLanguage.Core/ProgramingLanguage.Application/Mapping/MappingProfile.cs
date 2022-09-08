@@ -2,8 +2,12 @@
 using Core.Persistence.Paging;
 using ProgramingLanguage.Application.Features.Commands.Languages.AddLanguage;
 using ProgramingLanguage.Application.Features.Commands.Languages.UpdateLanguage;
+using ProgramingLanguage.Application.Features.Commands.LanguageTechnologies.AddLanguageTechnology;
 using ProgramingLanguage.Application.Models.Languages;
 using ProgramingLanguage.Domain.Entities;
+using ProgramingLanguageTechnology.Application.Features.Commands.LanguageTechnologyies.UpdateLanguageTechnology;
+using ProgramingLanguageTechnology.Application.Models.LanguageTechnologies;
+using ProgramingLanguageTechnology.Application.Models.LanguageTechnologyis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +20,7 @@ namespace ProgramingLanguage.Application.Mapping
     {
         public MappingProfile()
         {
-            
+            #region  Language
             CreateMap<Language, AddLanguageCommand>().ReverseMap();
             CreateMap<UpdateLanguageCommand, Language>().ReverseMap();
             CreateMap<UpdateLanguageCommand, LanguageViewModel>().ReverseMap();
@@ -24,7 +28,17 @@ namespace ProgramingLanguage.Application.Mapping
             CreateMap<AddLanguageModel, AddLanguageCommand>().ReverseMap();
             CreateMap<LanguageViewModel, AddLanguageCommand>().ReverseMap();
             CreateMap<IPaginate<Language>, LanguageListModel>().ReverseMap();
+            #endregion
 
+            #region LanguageTechnology
+            CreateMap<LanguageTechnology, AddLanguageTechnologyCommand>().ReverseMap();
+            CreateMap<LanguageTechnology, LanguageTechnologyViewModel>().ReverseMap();
+            CreateMap<AddLanguageTechnologyModel, AddLanguageTechnologyCommand>().ReverseMap();
+            CreateMap<LanguageTechnologyViewModel, AddLanguageTechnologyCommand>().ReverseMap();
+            CreateMap<IPaginate<LanguageTechnology>, LanguageTechnologyListModel>().ReverseMap();
+            CreateMap<UpdateLanguageTechnologyCommand, LanguageTechnology>().ReverseMap();
+            CreateMap<UpdateLanguageTechnologyCommand, LanguageTechnologyViewModel>().ReverseMap();
+            #endregion
         }
     }
 }
