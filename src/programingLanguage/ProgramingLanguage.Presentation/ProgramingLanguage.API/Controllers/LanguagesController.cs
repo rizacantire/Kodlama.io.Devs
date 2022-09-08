@@ -1,4 +1,5 @@
 ﻿using Core.Application.Requests;
+using Core.Persistence.Dynamic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProgramingLanguage.API.Controllers.Common;
@@ -6,6 +7,7 @@ using ProgramingLanguage.Application.Features.Commands.Languages.AddLanguage;
 using ProgramingLanguage.Application.Features.Commands.Languages.DeleteLanguage;
 using ProgramingLanguage.Application.Features.Commands.Languages.UpdateLanguage;
 using ProgramingLanguage.Application.Features.Queries.Languages.GetLanguages;
+using ProgramingLanguage.Application.Features.Queries.Languages.GetLanguagesByDynamic;
 using ProgramingLanguage.Application.Models.Languages;
 
 namespace ProgramingLanguage.API.Controllers
@@ -47,6 +49,15 @@ namespace ProgramingLanguage.API.Controllers
         {
             var response = await Mediator.Send(query);
             return Ok(response);
+        }
+
+        [HttpPost("GetList/ByDynamic")]
+        public async Task<ActionResult> GetListByDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic)
+        {
+            GetLanguagesByDynamicQuery getLanguagesByDynamicQuery = new GetLanguagesByDynamicQuery { PageRequest = pageRequest, Dynamic = dynamic };
+            LanguageListModel result = await Mediator.Send(getLanguagesByDynamicQuery);
+            return Ok(result);
+
         }
     }
 }
