@@ -1,5 +1,6 @@
 using Application.Models.Register;
 using Application.Services.Auths;
+using AutoMapper;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
@@ -10,28 +11,26 @@ namespace Application.Features.Commands.Register
 {
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteredModel>
         {
-            IUserRepository _userRepository;
-            IAuthService _authService;
+            private readonly IUserRepository _userRepository;
+            private readonly IAuthService _authService;
+            private readonly IMapper _mapper;
 
-            public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService)
-            {
-                _userRepository = userRepository;
-                _authService = authService;
-            }
+        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, IMapper mapper = null)
+        {
+            _userRepository = userRepository;
+            _authService = authService;
+            _mapper = mapper;
+        }
 
-            public async Task<RegisteredModel> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<RegisteredModel> Handle(RegisterCommand request, CancellationToken cancellationToken)
             {
                 byte[] passWordHash, passwordSalt;
-                HashingHelper.CreatePasswordHash(request.UserForRegisterDto.Password,out passWordHash,out passwordSalt);
-                User user = new User
-                {
-                    Email = request.UserForRegisterDto.Email,
-                    FirstName = request.UserForRegisterDto.FirstName,
-                    LastName = request.UserForRegisterDto.LastName,
-                    PasswordHash = passWordHash,
-                    PasswordSalt = passwordSalt
-                };
-                User createdUser = await _userRepository.AddAsync(user);
+                HashingHelper.CreatePasswordHash(request.Password,out passWordHash,out passwordSalt);
+                User user = _mapper.Map<User>(request);
+                user.PasswordHash = passWordHash;
+                user.PasswordSalt = passwordSalt;
+
+                User createdUser = await _authService.Add(user);
 
                 AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
                 RegisteredModel registeredModel = new RegisteredModel

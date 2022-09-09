@@ -4,9 +4,9 @@ using MediatR;
 
 namespace Application.Features.Commands.Register
 {
-    public class RegisterCommand : IRequest<RegisteredModel>
+    public class RegisterCommand :UserForRegisterDto, IRequest<RegisteredModel>
     {
-        public UserForRegisterDto UserForRegisterDto { get; set; }
+
 
     }
 }

@@ -10,5 +10,8 @@ namespace Application.Services.Auths
         Task<User> Login(UserForLoginDto userForLoginDto);
         Task<bool> UserExists(string email);
         Task<User> LoginDto(UserForLoginDto loginDto);
+        List<OperationClaim> GetClaims(User user);
+        Task<User> Add(User user);
+        Task<User> GetByMail(string email);
     }
 }

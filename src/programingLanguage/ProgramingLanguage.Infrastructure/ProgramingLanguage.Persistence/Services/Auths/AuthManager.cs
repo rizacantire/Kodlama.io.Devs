@@ -12,17 +12,16 @@ namespace Application.Services.Auths
 {
     public class AuthManager : IAuthService
     {
-        IUserOperationClaimRepository _userOperationClaimRepository;
-        ITokenHelper _tokenHelper;
-        private IUserRepository _userRepository;
-        private IUserService _userService;
+        private readonly IUserOperationClaimRepository _userOperationClaimRepository;
+        private readonly ITokenHelper _tokenHelper;
+        private readonly IUserRepository _userRepository;
 
 
-        public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper, IUserService userService = null)
+        public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper, IUserRepository userRepository = null)
         {
             _userOperationClaimRepository = userOperationClaimRepository;
             _tokenHelper = tokenHelper;
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public async Task<AccessToken> CreateAccessToken(User user)
@@ -63,7 +62,7 @@ namespace Application.Services.Auths
 
         public async Task<User> LoginDto(UserForLoginDto loginDto)
         {
-             var userToCheck = await _userService.GetByMail(loginDto.Email);
+             var userToCheck = await GetByMail(loginDto.Email);
             if (userToCheck == null)
             {
                 throw new BusinessException("Kullanıcı bulunamadı");
@@ -75,6 +74,29 @@ namespace Application.Services.Auths
             }
 
             return userToCheck;
+        }
+
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userRepository.GetClaims(user);
+        }
+
+        public async Task<User> Add(User user)
+        {
+            User addedUser = await GetByMail(user.Email);
+            if(addedUser != null)
+                throw new BusinessException("Kullanıcı kayıtlı");
+            var response = await _userRepository.AddAsync(user);
+            return response;
+        }
+
+        public async Task<User> GetByMail(string email)
+        {
+            User user = await _userRepository.GetAsync(u => u.Email == email);
+            if(user == null)
+                return null;
+            return user;
         }
     
     }

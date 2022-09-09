@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using Application.Features.Commands.Register;
+using AutoMapper;
 using Core.Persistence.Paging;
 using Core.Security.Dtos;
+using Core.Security.Entities;
 using ProgramingLanguage.Application.Features.Commands.Languages.AddLanguage;
 using ProgramingLanguage.Application.Features.Commands.Languages.UpdateLanguage;
 using ProgramingLanguage.Application.Features.Commands.LanguageTechnologies.AddLanguageTechnology;
@@ -44,6 +46,8 @@ namespace ProgramingLanguage.Application.Mapping
 
             #region  Login
             CreateMap<LoginQuery,UserForLoginDto>().ReverseMap();
+            CreateMap<RegisterCommand,User>().ReverseMap();
+            CreateMap<RegisterCommand,UserForRegisterDto>().ReverseMap();
             #endregion
         }
     }

@@ -13,15 +13,11 @@ namespace ProgramingLanguage.API.Controllers
     public class AuthsController : BaseController
     {
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
-            RegisterCommand registerCommand = new RegisterCommand
-            {
-                UserForRegisterDto = userForRegisterDto
-            };
-
-            RegisteredModel registeredDto = await Mediator.Send(registerCommand);
-            return Created("", registeredDto.AccessToken);
+    
+            var result = await Mediator.Send(command);
+            return Created("", result.AccessToken);
         }
 
         [HttpPost("login")]

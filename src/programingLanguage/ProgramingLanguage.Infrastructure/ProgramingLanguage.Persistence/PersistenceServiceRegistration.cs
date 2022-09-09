@@ -25,7 +25,6 @@ namespace ProgramingLanguage.Persistence
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
             services.AddScoped<IAuthService, AuthManager>();
-            services.AddScoped<IUserService, UserManager>();
 
         }
     }
