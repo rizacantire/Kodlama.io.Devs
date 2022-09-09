@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProgramingLanguage.API.Controllers.Common;
 using ProgramingLanguage.Application.Features.Commands.LanguageTechnologies.AddLanguageTechnology;
-using ProgramingLanguage.Application.Features.Queries.Languages.GetLanguagesByDynamic;
+using ProgramingLanguage.Application.Features.Commands.LanguageTechnologyies.DeleteLanguageTechnology;
+using ProgramingLanguage.Application.Features.Commands.LanguageTechnologyies.UpdateLanguageTechnology;
 using ProgramingLanguage.Application.Features.Queries.Languages.GetLanguageTechnologiesByDynamic;
-using ProgramingLanguageTechnology.Application.Features.Commands.LanguageTechnologyies.DeleteLanguageTechnology;
-using ProgramingLanguageTechnology.Application.Features.Commands.LanguageTechnologyies.UpdateLanguageTechnology;
-using ProgramingLanguageTechnology.Application.Features.Queries.LanguageTechnologies.GetLanguageTechnologies;
-using ProgramingLanguageTechnology.Application.Models.LanguageTechnologies;
-using ProgramingLanguageTechnology.Application.Models.LanguageTechnologyis;
+using ProgramingLanguage.Application.Features.Queries.LanguageTechnologies.GetLanguageTechnologies;
+using ProgramingLanguage.Application.Models.LanguageTechnologies;
+using ProgramingLanguage.Application.Models.LanguageTechnologyis;
 
 namespace ProgramingLanguageTechnology.API.Controllers
 {

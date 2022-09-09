@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
 using ProgramingLanguage.Application.Features.Commands.Languages.AddLanguage;
+using ProgramingLanguage.Application.Models.LanguageTechnologies;
 using ProgramingLanguage.Application.Repositories.ProgramingLanguages;
 using ProgramingLanguage.Domain.Entities;
-using ProgramingLanguageTechnology.Application.Models.LanguageTechnologies;
-using ProgramingLanguageTechnology.Application.Rules.LanguageTechnologies;
+using ProgramingLanguage.Application.Rules.LanguageTechnologies;
 
 namespace ProgramingLanguage.Application.Features.Commands.LanguageTechnologies.AddLanguageTechnology
 {

@@ -1,18 +1,19 @@
 ﻿using AutoMapper;
 using Core.Persistence.Paging;
 using MediatR;
+using ProgramingLanguage.Application.Models.LanguageTechnologies;
 using ProgramingLanguage.Application.Repositories.ProgramingLanguages;
 using ProgramingLanguage.Domain.Entities;
-using ProgramingLanguageTechnology.Application.Models.LanguageTechnologies;
-using ProgramingLanguageTechnology.Application.Rules.LanguageTechnologies;
+using ProgramingLanguage.Application.Rules.LanguageTechnologies;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace ProgramingLanguageTechnology.Application.Features.Queries.LanguageTechnologies.GetLanguageTechnologies
+namespace ProgramingLanguage.Application.Features.Queries.LanguageTechnologies.GetLanguageTechnologies
 {
     public class GetLanguageTechnologyByIdQueryHandler : IRequestHandler<GetLanguageTechnologyByIdQuery, LanguageTechnologyViewModel>
     {
@@ -31,7 +32,9 @@ namespace ProgramingLanguageTechnology.Application.Features.Queries.LanguageTech
         public async Task<LanguageTechnologyViewModel> Handle(GetLanguageTechnologyByIdQuery request, CancellationToken cancellationToken)
         {
 
-            LanguageTechnology? languageTechnology = await _languageTechnologyRepository.GetAsync(predicate: p => p.Id == request.Id);
+            LanguageTechnology? languageTechnology = await _languageTechnologyRepository.GetAsync(
+                                                    predicate: p => p.Id == request.Id,
+                                                    include: p => p.Include(c => c.Language));
             _languageTechnologyBusinessRules.LanguageTechnologyShouldExistWhenRequested(languageTechnology);
             LanguageTechnologyViewModel returnItem = _mapper.Map<LanguageTechnologyViewModel>(languageTechnology);
 

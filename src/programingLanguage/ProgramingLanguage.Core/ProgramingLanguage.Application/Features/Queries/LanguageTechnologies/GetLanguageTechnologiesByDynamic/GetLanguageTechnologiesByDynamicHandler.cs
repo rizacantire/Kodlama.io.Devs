@@ -5,9 +5,9 @@ using Core.Persistence.Paging;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ProgramingLanguage.Application.Models.Languages;
+using ProgramingLanguage.Application.Models.LanguageTechnologyis;
 using ProgramingLanguage.Application.Repositories.ProgramingLanguages;
 using ProgramingLanguage.Domain.Entities;
-using ProgramingLanguageTechnology.Application.Models.LanguageTechnologyis;
 
 namespace ProgramingLanguage.Application.Features.Queries.Languages.GetLanguageTechnologiesByDynamic
 {

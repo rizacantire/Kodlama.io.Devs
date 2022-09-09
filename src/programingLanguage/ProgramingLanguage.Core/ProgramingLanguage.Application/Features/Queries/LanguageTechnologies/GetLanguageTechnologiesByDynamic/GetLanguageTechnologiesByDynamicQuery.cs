@@ -2,7 +2,7 @@ using Core.Application.Requests;
 using Core.Persistence.Dynamic;
 using MediatR;
 using ProgramingLanguage.Application.Models.Languages;
-using ProgramingLanguageTechnology.Application.Models.LanguageTechnologyis;
+using ProgramingLanguage.Application.Models.LanguageTechnologyis;
 
 namespace ProgramingLanguage.Application.Features.Queries.Languages.GetLanguageTechnologiesByDynamic
 {

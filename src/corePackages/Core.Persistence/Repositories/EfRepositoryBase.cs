@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using System.Drawing;
+using System.Linq.Expressions;
+using System.Threading;
 using Core.Persistence.Dynamic;
 using Core.Persistence.Paging;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +19,13 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         Context = context;
     }
 
-    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
+    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
     {
-        return await Context.Set<TEntity>().FirstOrDefaultAsync(predicate);
+        IQueryable<TEntity> queryable = Query();
+
+        if (include != null) queryable = include(queryable);
+        if (predicate != null) queryable = queryable.Where(predicate);
+        return await queryable.FirstOrDefaultAsync();
     }
 
     public virtual async Task<TEntity> GetByIdAsync(int id)

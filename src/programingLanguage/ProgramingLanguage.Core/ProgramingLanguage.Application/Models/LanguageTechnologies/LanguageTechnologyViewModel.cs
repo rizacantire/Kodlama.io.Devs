@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgramingLanguageTechnology.Application.Models.LanguageTechnologies
+namespace ProgramingLanguage.Application.Models.LanguageTechnologies
 {
     public class LanguageTechnologyViewModel
     {
