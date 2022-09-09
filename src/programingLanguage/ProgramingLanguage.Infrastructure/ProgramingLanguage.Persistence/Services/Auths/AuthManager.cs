@@ -15,12 +15,14 @@ namespace Application.Services.Auths
         IUserOperationClaimRepository _userOperationClaimRepository;
         ITokenHelper _tokenHelper;
         private IUserRepository _userRepository;
+        private IUserService _userService;
 
 
-        public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper)
+        public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper, IUserService userService = null)
         {
             _userOperationClaimRepository = userOperationClaimRepository;
             _tokenHelper = tokenHelper;
+            _userService = userService;
         }
 
         public async Task<AccessToken> CreateAccessToken(User user)
@@ -42,10 +44,10 @@ namespace Application.Services.Auths
         {
             var userToCheck = await _userRepository.GetAsync(p=>p.Email == userForLoginDto.Email);
             if (userToCheck == null)
-                throw new BusinessException("Kullanýcý bulunamadý");
+                throw new BusinessException("Kullanï¿½cï¿½ bulunamadï¿½");
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
-                throw new BusinessException("Parola hatasý");
+                throw new BusinessException("Parola hatasï¿½");
             return userToCheck;
         }
     
@@ -54,9 +56,25 @@ namespace Application.Services.Auths
         {
             var userToCheck = await _userRepository.GetAsync(p => p.Email == email);
             if (userToCheck != null)
-                throw new BusinessException("Kullanýcý zaten mevcut");
+                throw new BusinessException("Kullanï¿½cï¿½ zaten mevcut");
 
             return true;
+        }
+
+        public async Task<User> LoginDto(UserForLoginDto loginDto)
+        {
+             var userToCheck = await _userService.GetByMail(loginDto.Email);
+            if (userToCheck == null)
+            {
+                throw new BusinessException("KullanÄ±cÄ± bulunamadÄ±");
+            }
+
+            if (!HashingHelper.VerifyPasswordHash(loginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            {
+                throw new BusinessException("Parola hatasÄ±");
+            }
+
+            return userToCheck;
         }
     
     }

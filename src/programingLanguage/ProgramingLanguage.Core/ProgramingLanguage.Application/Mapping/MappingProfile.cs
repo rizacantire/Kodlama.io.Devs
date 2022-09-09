@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Core.Persistence.Paging;
+using Core.Security.Dtos;
 using ProgramingLanguage.Application.Features.Commands.Languages.AddLanguage;
 using ProgramingLanguage.Application.Features.Commands.Languages.UpdateLanguage;
 using ProgramingLanguage.Application.Features.Commands.LanguageTechnologies.AddLanguageTechnology;
 using ProgramingLanguage.Application.Features.Commands.LanguageTechnologyies.UpdateLanguageTechnology;
+using ProgramingLanguage.Application.Features.Queries.Auths.Login;
 using ProgramingLanguage.Application.Models.Languages;
 using ProgramingLanguage.Application.Models.LanguageTechnologies;
 using ProgramingLanguage.Application.Models.LanguageTechnologyis;
@@ -38,6 +40,10 @@ namespace ProgramingLanguage.Application.Mapping
             CreateMap<IPaginate<LanguageTechnology>, LanguageTechnologyListModel>().ReverseMap();
             CreateMap<UpdateLanguageTechnologyCommand, LanguageTechnology>().ReverseMap();
             CreateMap<UpdateLanguageTechnologyCommand, LanguageTechnologyViewModel>().ReverseMap();
+            #endregion
+
+            #region  Login
+            CreateMap<LoginQuery,UserForLoginDto>().ReverseMap();
             #endregion
         }
     }

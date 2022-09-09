@@ -5,5 +5,6 @@ namespace ProgramingLanguage.Application.Repositories.Users
 {
     public interface IUserRepository:IAsyncRepository<User>
     {
+        List<OperationClaim> GetClaims(User user);
     }
 }

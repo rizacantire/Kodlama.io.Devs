@@ -4,6 +4,7 @@ using Core.Security.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProgramingLanguage.API.Controllers.Common;
+using ProgramingLanguage.Application.Features.Queries.Auths.Login;
 
 namespace ProgramingLanguage.API.Controllers
 {
@@ -24,9 +25,9 @@ namespace ProgramingLanguage.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserForLoginDto userLoginDto)
+        public async Task<IActionResult> Login([FromBody] LoginQuery query)
         {
-            var result = await Mediator.Send(userLoginDto);
+            var result = await Mediator.Send(query);
             return Ok(result);
         }
     }

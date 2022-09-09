@@ -9,5 +9,6 @@ namespace Application.Services.Auths
         Task<AccessToken> CreateAccessToken(User user);
         Task<User> Login(UserForLoginDto userForLoginDto);
         Task<bool> UserExists(string email);
+        Task<User> LoginDto(UserForLoginDto loginDto);
     }
 }

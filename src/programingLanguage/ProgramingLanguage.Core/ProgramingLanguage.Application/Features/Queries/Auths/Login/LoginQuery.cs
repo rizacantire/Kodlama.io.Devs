@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace ProgramingLanguage.Application.Features.Queries.Auths.Login
 {
-    public class LoginQuery : UserForLoginDto, IRequest<bool>
+    public class LoginQuery :  IRequest<string>
     {
+         public string Email { get; set; }
+        public string Password { get; set; }
+        public string? AuthenticatorCode { get; set; }
     }
 }

@@ -17,14 +17,15 @@ namespace ProgramingLanguage.Persistence
         {
             services.AddDbContext<BaseDbContext>(
                 options =>
-                            options.UseSqlServer(configuration.GetConnectionString("SqlServeConnectionString"))
-                            //options.UseSqlite(configuration.GetConnectionString("SqliteConnectionString"))
+                            //options.UseSqlServer(configuration.GetConnectionString("SqlServeConnectionString"))
+                            options.UseSqlite(configuration.GetConnectionString("SqliteConnectionString"))
                     );
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<ILanguageTechnologyRepository, LanguageTechnologyRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
             services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<IUserService, UserManager>();
 
         }
     }
