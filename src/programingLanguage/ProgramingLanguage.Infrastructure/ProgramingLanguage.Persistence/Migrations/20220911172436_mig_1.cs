@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProgramingLanguage.Persistence.Migrations
 {
-    public partial class mig_sqlite : Migration
+    public partial class mig_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -102,6 +102,26 @@ namespace ProgramingLanguage.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserContacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    GitHubAddress = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserContacts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserContacts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserOperationClaims",
                 columns: table => new
                 {
@@ -164,6 +184,12 @@ namespace ProgramingLanguage.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserContacts_UserId",
+                table: "UserContacts",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserOperationClaims_OperationClaimId",
                 table: "UserOperationClaims",
                 column: "OperationClaimId");
@@ -181,6 +207,9 @@ namespace ProgramingLanguage.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "RefreshToken");
+
+            migrationBuilder.DropTable(
+                name: "UserContacts");
 
             migrationBuilder.DropTable(
                 name: "UserOperationClaims");

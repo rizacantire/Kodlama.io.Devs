@@ -3,7 +3,7 @@ using ProgramingLanguage.Application.Repositories.ProgramingLanguages;
 using ProgramingLanguage.Domain.Entities;
 using ProgramingLanguage.Persistence.Context;
 
-namespace ProgramingLanguage.Persistence.Repositories
+namespace ProgramingLanguage.Persistence.Repositories.Languages
 {
     public class LanguageRepository : EfRepositoryBase<Language, BaseDbContext>, ILanguageRepository
     {

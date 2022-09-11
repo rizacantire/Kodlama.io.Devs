@@ -11,8 +11,8 @@ using ProgramingLanguage.Persistence.Context;
 namespace ProgramingLanguage.Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20220909043212_mig_sqlite")]
-    partial class mig_sqlite
+    [Migration("20220911172436_mig_1")]
+    partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,6 +113,27 @@ namespace ProgramingLanguage.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Core.Security.Entities.UserContact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("GitHubAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserContacts");
+                });
+
             modelBuilder.Entity("Core.Security.Entities.UserOperationClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -211,6 +232,17 @@ namespace ProgramingLanguage.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Core.Security.Entities.UserContact", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithOne("UserContact")
+                        .HasForeignKey("Core.Security.Entities.UserContact", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Core.Security.Entities.UserOperationClaim", b =>
                 {
                     b.HasOne("Core.Security.Entities.OperationClaim", "OperationClaim")
@@ -244,6 +276,9 @@ namespace ProgramingLanguage.Persistence.Migrations
             modelBuilder.Entity("Core.Security.Entities.User", b =>
                 {
                     b.Navigation("RefreshTokens");
+
+                    b.Navigation("UserContact")
+                        .IsRequired();
 
                     b.Navigation("UserOperationClaims");
                 });

@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using ProgramingLanguage.Application.Rules.Languages;
 using ProgramingLanguage.Application.Rules.LanguageTechnologies;
+using ProgramingLanguage.Application.Rules.UserContacts;
 using System.Reflection;
 
 namespace ProgramingLanguage.Application
@@ -20,6 +21,8 @@ namespace ProgramingLanguage.Application
 
             services.AddScoped<LanguageBusinessRules>();
             services.AddScoped<LanguageTechnologyBusinessRules>();
+            services.AddScoped<UserContactBusinessRules>();
+
 
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

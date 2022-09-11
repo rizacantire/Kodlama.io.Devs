@@ -4,7 +4,7 @@ using ProgramingLanguage.Domain.Entities;
 using ProgramingLanguage.Persistence.Context;
 
 
-namespace ProgramingLanguageTechnology.Persistence.Repositories
+namespace ProgramingLanguage.Persistence.Repositories.LanguageTechnologies
 {
     public class LanguageTechnologyRepository : EfRepositoryBase<LanguageTechnology, BaseDbContext>, ILanguageTechnologyRepository
     {

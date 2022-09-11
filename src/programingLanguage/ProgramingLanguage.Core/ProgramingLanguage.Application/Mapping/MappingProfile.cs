@@ -7,10 +7,12 @@ using ProgramingLanguage.Application.Features.Commands.Languages.AddLanguage;
 using ProgramingLanguage.Application.Features.Commands.Languages.UpdateLanguage;
 using ProgramingLanguage.Application.Features.Commands.LanguageTechnologies.AddLanguageTechnology;
 using ProgramingLanguage.Application.Features.Commands.LanguageTechnologyies.UpdateLanguageTechnology;
+using ProgramingLanguage.Application.Features.Commands.Users.UserContacts.AddUserContact;
 using ProgramingLanguage.Application.Features.Queries.Auths.Login;
 using ProgramingLanguage.Application.Models.Languages;
 using ProgramingLanguage.Application.Models.LanguageTechnologies;
 using ProgramingLanguage.Application.Models.LanguageTechnologyis;
+using ProgramingLanguage.Application.Models.Users.UserContacts;
 using ProgramingLanguage.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -48,6 +50,14 @@ namespace ProgramingLanguage.Application.Mapping
             CreateMap<LoginQuery,UserForLoginDto>().ReverseMap();
             CreateMap<RegisterCommand,User>().ReverseMap();
             CreateMap<RegisterCommand,UserForRegisterDto>().ReverseMap();
+            #endregion
+
+            #region UserContact
+            CreateMap<AddUserContactCommand, UserContact>().ReverseMap();
+            CreateMap<UserContact, UserContactViewModel>().ReverseMap();
+            CreateMap<IPaginate<UserContact>, UserContactListModel>().ReverseMap();
+
+
             #endregion
         }
     }
